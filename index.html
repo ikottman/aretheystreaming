@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Are they streaming?</title>
+    <style>
+      body, html {
+        height: 100%;
+        display: grid;
+        margin: 0;
+        transition: background-color 2s ease;
+      }
+      
+      span {
+        margin: auto;
+        font-size: 75px;
+        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function live() {
+        document.body.style.backgroundColor = '#00C78E';
+        document.getElementById("status").innerText = 'yes';
+        document.title = '🌝';
+      }
+
+      function dead() {
+        document.body.style.backgroundColor = '#C70039';
+        document.getElementById("status").innerText = 'no';
+        document.title = '🌚';
+      }
+
+      function checkStatus() {
+        const options = {
+          headers: {
+            'Client-ID': 'fb8brzjsgp1lsl7vnj6clt4ozvuz8c'
+          }
+        };
+        
+        fetch('https://api.twitch.tv/helix/streams?user_login=polarkc', options)
+          .then(function(response) {
+            if(response.ok) {
+              return response.json();
+            }
+            throw new Error('non 200 response');
+          })
+          .then(function(data) {
+            if (data == null || data['data'].length == 0) {
+              dead();
+            } else {
+              live();
+            }
+          })
+          .catch(function(error) {
+            console.log("failed to call twitch API");
+            dead();
+          });
+      }
+      if (document.addEventListener) document.addEventListener("DOMContentLoaded", checkStatus, false);
+      else if (document.attachEvent) document.attachEvent("onreadystatechange", checkStatus);
+      else window.onload = checkStatus;
+    </script>
+
+      <span id='status'/>
+
+  </body>
+</html>
