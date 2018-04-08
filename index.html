@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" sizes="16x16" href="full_moon_with_face.png">
+    <meta charset='UTF-8'>
+    <link rel='icon' type='image/png' sizes='16x16' href='full_moon_with_face.png'>
     <title>Are they streaming?</title>
     <style>
       body, html {
@@ -15,27 +15,29 @@
       span {
         margin: auto;
         font-size: 75px;
-        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
       }
     </style>
   </head>
   <body>
-    <script type="text/javascript">
+    <script type='text/javascript'>
       function noUser() {
-        document.getElementById("status").style.fontSize = '25px';
-        document.getElementById("status").innerText = 'check if a Twitch stream is live by going to https://ikottman.github.io/isstreaming?user=TheirIdHere';
+        document.getElementById('status').style.fontSize = '25px';
+        document.getElementById('status').innerText = 'check if a Twitch stream is live by going to https://ikottman.github.io/isstreaming?user=TheirIdHere';
       }
 
       function live() {
         document.body.style.backgroundColor = '#00C78E';
-        document.getElementById("status").innerText = 'yes';
-        document.title = '🌝';
+        document.getElementById('status').innerText = 'yes';
+        document.getElementById('icon').setAttribute('href', 'full_moon_with_face.png');
+        document.title = 'yes';
       }
 
       function dead() {
         document.body.style.backgroundColor = '#C70039';
-        document.getElementById("status").innerText = 'no';
-        document.title = '🌚';
+        document.getElementById('status').innerText = 'no';
+        document.getElementById('icon').setAttribute('href', 'new_moon_with_face.png');
+        document.title = 'no';
       }
 
       function getUser() {
@@ -68,7 +70,7 @@
             }
           })
           .catch(function(error) {
-            console.log("failed to call twitch API");
+            console.log('failed to call twitch API');
             dead();
           });
       }
@@ -81,8 +83,8 @@
           checkStatus(user);
         }
       }
-      if (document.addEventListener) document.addEventListener("DOMContentLoaded", main, false);
-      else if (document.attachEvent) document.attachEvent("onreadystatechange", main);
+      if (document.addEventListener) document.addEventListener('DOMContentLoaded', main, false);
+      else if (document.attachEvent) document.attachEvent('onreadystatechange', main);
       else window.onload = main;
     </script>
 
