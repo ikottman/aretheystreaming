@@ -23,7 +23,10 @@
     <script type='text/javascript'>
       function noUser() {
         document.getElementById('status').style.fontSize = '25px';
-        document.getElementById('status').innerText = 'check if a Twitch stream is live by going to https://ikottman.github.io/isstreaming?user=TheirIdHere';
+        const link = document.createElement('a');
+        link.setAttribute('href','https://ikottman.github.io/isstreaming?user=polarkc');
+        link.innerHTML = 'ikottman.github.io/isstreaming?user=YOUR_FAVORITE_TWITCH_STREAMER_HERE';
+        document.getElementById('status').appendChild(link);
       }
 
       function live() {
