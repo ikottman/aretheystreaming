@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="/full_moon_with_face.png">
     <title>Are they streaming?</title>
     <style>
       body, html {
@@ -20,6 +21,11 @@
   </head>
   <body>
     <script type="text/javascript">
+      function noUser() {
+        document.getElementById("status").style.fontSize = '25px';
+        document.getElementById("status").innerText = 'check if a Twitch stream is live by going to https://ikottman.github.io/isstreaming?user=TheirIdHere';
+      }
+
       function live() {
         document.body.style.backgroundColor = '#00C78E';
         document.getElementById("status").innerText = 'yes';
@@ -32,14 +38,22 @@
         document.title = '🌚';
       }
 
-      function checkStatus() {
+      function getUser() {
+        const paramsRegex = new RegExp('user=([^&]*)');
+        const result = paramsRegex.exec(window.location.href);
+        if (result != null && result.length > 1) {
+          return result[1];
+        }
+        return null;
+      }
+
+      function checkStatus(user) {
         const options = {
           headers: {
             'Client-ID': 'fb8brzjsgp1lsl7vnj6clt4ozvuz8c'
           }
         };
-        
-        fetch('https://api.twitch.tv/helix/streams?user_login=polarkc', options)
+        fetch('https://api.twitch.tv/helix/streams?user_login=' + user, options)
           .then(function(response) {
             if(response.ok) {
               return response.json();
@@ -58,9 +72,18 @@
             dead();
           });
       }
-      if (document.addEventListener) document.addEventListener("DOMContentLoaded", checkStatus, false);
-      else if (document.attachEvent) document.attachEvent("onreadystatechange", checkStatus);
-      else window.onload = checkStatus;
+
+      function main() {
+        const user = getUser();
+        if (user == null) {
+          noUser();
+        } else {
+          checkStatus(user);
+        }
+      }
+      if (document.addEventListener) document.addEventListener("DOMContentLoaded", main, false);
+      else if (document.attachEvent) document.attachEvent("onreadystatechange", main);
+      else window.onload = main;
     </script>
 
       <span id='status'/>
