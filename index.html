@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset='UTF-8'>
-    <link rel='icon' type='image/png' sizes='16x16' href='full_moon_with_face.png'>
+    <link id='favicon' rel='icon' type='image/png' sizes='16x16' href='full_moon_with_face.png'>
     <title>Are they streaming?</title>
     <style>
       body, html {
@@ -29,14 +29,14 @@
       function live() {
         document.body.style.backgroundColor = '#00C78E';
         document.getElementById('status').innerText = 'yes';
-        document.getElementById('icon').setAttribute('href', 'full_moon_with_face.png');
+        document.getElementById('favicon').setAttribute('href', 'full_moon_with_face.png');
         document.title = 'yes';
       }
 
       function dead() {
         document.body.style.backgroundColor = '#C70039';
         document.getElementById('status').innerText = 'no';
-        document.getElementById('icon').setAttribute('href', 'new_moon_with_face.png');
+        document.getElementById('favicon').setAttribute('href', 'new_moon_with_face.png');
         document.title = 'no';
       }
 
